@@ -1,6 +1,6 @@
 # Apache Kafka Example on Go
 
-This is a simple repo to use [Apache Kafka]() with Go, the code demo is based on a chat via
+This is a simple repo to use [Apache Kafka](https://kafka.apache.org/) with Go, the code demo is based on a chat via
 console line.
 
 The code is divided into two part a client and a server.
