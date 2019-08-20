@@ -8,10 +8,8 @@ import (
 	"github.com/segmentio/kafka-go"
 	"github.com/segmentio/kafka-go/snappy"
 
-	"github.com/friendsofgo/kafka-example/pkg"
+	kafkaexample "github.com/friendsofgo/kafka-example/pkg"
 )
-
-const clientID = "01DJQXRBDE49RGSZ87B126FCB0"
 
 type publisher struct {
 	writer *kafka.Writer
@@ -20,17 +18,17 @@ type publisher struct {
 // NewPublisher create a kafka publisher
 func NewPublisher(brokers []string, topic string) kafkaexample.Publisher {
 	dialer := &kafka.Dialer{
-		Timeout: 10 * time.Second,
+		Timeout:  10 * time.Second,
 		ClientID: clientID,
 	}
 
 	c := kafka.WriterConfig{
-		Brokers: brokers,
-		Topic: topic,
-		Balancer: &kafka.LeastBytes{},
-		Dialer: dialer,
-		WriteTimeout: 10 *time.Second,
-		ReadTimeout: 10 *time.Second,
+		Brokers:          brokers,
+		Topic:            topic,
+		Balancer:         &kafka.LeastBytes{},
+		Dialer:           dialer,
+		WriteTimeout:     10 * time.Second,
+		ReadTimeout:      10 * time.Second,
 		CompressionCodec: snappy.NewCompressionCodec(),
 	}
 
@@ -54,7 +52,7 @@ func (p *publisher) encodeMessage(payload interface{}) (kafka.Message, error) {
 
 	key := kafkaexample.Ulid()
 	return kafka.Message{
-		Key: []byte(key),
+		Key:   []byte(key),
 		Value: m,
 	}, nil
 }

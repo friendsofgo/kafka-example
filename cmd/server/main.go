@@ -15,10 +15,6 @@ import (
 	"github.com/friendsofgo/kafka-example/pkg/kafka"
 )
 
-const (
-	topic = "fogo-chat"
-)
-
 type Request struct {
 	Username string `json:"username"`
 	Message  string `json:"message"`
@@ -26,7 +22,10 @@ type Request struct {
 
 func main() {
 
-	brokers := os.Getenv("KAFKA_BROKERS")
+	var (
+		brokers = os.Getenv("KAFKA_BROKERS")
+		topic   = os.Getenv("KAFKA_TOPIC")
+	)
 
 	publisher := kafka.NewPublisher(strings.Split(brokers, ","), topic)
 

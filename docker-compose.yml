@@ -2,7 +2,7 @@
 version: '2'
 services:
   zk1:
-    image: confluentinc/cp-zookeeper:3.0.1
+    image: confluentinc/cp-zookeeper:5.3.0
     ports:
       - "22181:22181"
     environment:
@@ -14,7 +14,7 @@ services:
       ZOOKEEPER_SERVERS: zk1:22888:23888;zk2:32888:33888;zk3:42888:43888
 
   zk2:
-    image: confluentinc/cp-zookeeper:3.0.1
+    image: confluentinc/cp-zookeeper:5.3.0
     ports:
       - "32181:32181"
     environment:
@@ -26,7 +26,7 @@ services:
       ZOOKEEPER_SERVERS: zk1:22888:23888;zk2:32888:33888;zk3:42888:43888
 
   zk3:
-    image: confluentinc/cp-zookeeper:3.0.1
+    image: confluentinc/cp-zookeeper:5.3.0
     ports:
       - "42181:42181"
     environment:
@@ -38,7 +38,7 @@ services:
       ZOOKEEPER_SERVERS: zk1:22888:23888;zk2:32888:33888;zk3:42888:43888
 
   kafka-1:
-    image: confluentinc/cp-kafka:3.0.1
+    image: confluentinc/cp-kafka:5.3.0
     ports:
       - "19092:19092"
     depends_on:
@@ -51,7 +51,7 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://${MY_IP}:19092
 
   kafka-2:
-    image: confluentinc/cp-kafka:3.0.1
+    image: confluentinc/cp-kafka:5.3.0
     ports:
       - "29092:29092"
     depends_on:
@@ -64,7 +64,7 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://${MY_IP}:29092
 
   kafka-3:
-    image: confluentinc/cp-kafka:3.0.1
+    image: confluentinc/cp-kafka:5.3.0
     ports:
       - "39092:39092"
     depends_on:
