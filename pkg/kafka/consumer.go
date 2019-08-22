@@ -25,6 +25,8 @@ func NewConsumer(brokers []string, topic string) kafkaexample.Consumer {
 		MaxBytes:        10e6,            // 10MB
 		MaxWait:         1 * time.Second, // Maximum amount of time to wait for new data to come when fetching batches of messages from kafka.
 		ReadLagInterval: -1,
+		GroupID:         kafkaexample.Ulid(),
+		StartOffset:     kafka.LastOffset,
 	}
 
 	return &consumer{kafka.NewReader(c)}
@@ -32,17 +34,12 @@ func NewConsumer(brokers []string, topic string) kafkaexample.Consumer {
 
 func (c *consumer) Read(ctx context.Context, chMsg chan kafkaexample.Message, chErr chan error) {
 	defer c.reader.Close()
-	start := time.Now()
 
 	for {
 
 		m, err := c.reader.ReadMessage(ctx)
 		if err != nil {
 			chErr <- errors.New(fmt.Sprintf("error while reading a message: %v", err))
-			continue
-		}
-
-		if m.Time.Unix() < start.Unix() {
 			continue
 		}
 
